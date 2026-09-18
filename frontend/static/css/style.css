@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  }
+
+body {
+font-family: Arial, Helvetica, sans-serif;
+background: #141414;
+color: #f5f5f5;
+min-height: 100vh;
+}
+
+.nav {
+width: 100%;
+min-height: 70px;
+padding: 0 40px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #1c1c1c;
+border-bottom: 1px solid #303030;
+
+}
+
+.sections-wrap,
+.logging-wrap {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.section-button,
+.logging-buttons {
+padding: 10px 16px;
+color: #dcdcdc;
+text-decoration: none;
+border-radius: 6px;
+cursor: pointer;
+transition: background 0.2s ease, color 0.2s ease;
+
+}
+
+.section-button:hover,
+.logging-buttons:hover {
+background: #303030;
+color: white;
+}
+
+.logging-buttons {
+color: #aaa;
+}
+
+
+.content {
+width: 100%;
+max-width: 1400px;
+margin: 0 auto;
+padding: 40px;
+
+}
+
+.movies-wrapper {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+gap: 28px;
+
+}
+
+
+
+.movie-wrap {
+background: #1e1e1e;
+border: 1px solid #2c2c2c;
+border-radius: 10px;
+overflow: hidden;
+transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+.movie-wrap:hover {
+transform: translateY(-5px);
+border-color: #444;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+
+.image-wrap {
+width: 100%;
+aspect-ratio: 2 / 3;
+overflow: hidden;
+background: #252525;
+
+}
+
+.movie-image {
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+transition: transform 0.3s ease;
+
+}
+
+.movie-wrap:hover .movie-image {
+transform: scale(1.04);
+}
+
+.movie-title {
+padding: 14px 15px 5px;
+font-size: 17px;
+font-weight: 600;
+color: #f5f5f5;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+
+}
+
+
+.movie-rating {
+padding: 4px 15px 15px;
+font-size: 14px;
+font-weight: 600;
+color: #f0c75e;
+
+}
+
+
+@media (max-width: 700px) {
+.nav {
+padding: 15px 20px;
+flex-direction: column;
+align-items: stretch;
+gap: 10px;
+}
+
+.sections-wrap,
+.logging-wrap {
+    justify-content: center;
+}
+
+.content {
+    padding: 25px 20px;
+}
+
+.movies-wrapper {
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(160px, 1fr)
+    );
+
+    gap: 18px;
+}
+
+}
+
+@media (max-width: 450px) {
+.section-button,
+.logging-buttons {
+padding: 8px 10px;
+font-size: 14px;
+}
+
+.movies-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.movie-title {
+    font-size: 15px;
+}
+
+}
