@@ -71,6 +71,11 @@ function createMoviesElements(jsonData){
             const imageElem = document.createElement('img');
             imageElem.classList.add('movie-image')
             imageElem.src = element.Poster;
+
+            imageElem.addEventListener('error', () => {
+                movieWrap.style.display = 'none';
+            });
+
             imageWrap.appendChild(imageElem);
 
         });
