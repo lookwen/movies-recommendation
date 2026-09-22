@@ -30,6 +30,10 @@ align-items: center;
 gap: 12px;
 }
 
+.non-visible{
+    display: none;
+}
+
 .section-button,
 .logging-buttons {
 padding: 10px 16px;

@@ -10,7 +10,7 @@ from backend.get_data import get_json_data
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
+def base():
     return render_template("base.html")
 
 @app.route('/api/movies')
