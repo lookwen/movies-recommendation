@@ -99,7 +99,7 @@ async function mainFunc(){
                 if(detailsElement){
                     detailsElement.classList.toggle('non-visible');
                 }
-                
+
             });
         });
 

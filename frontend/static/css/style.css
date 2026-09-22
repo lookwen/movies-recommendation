@@ -134,6 +134,40 @@ color: #f0c75e;
 }
 
 
+.movies-details-wrapper {
+    margin-top: 10px;
+    padding: 14px 15px;
+
+    background: #252525;
+    border-top: 1px solid #383838;
+
+    font-size: 13px;
+    line-height: 1.5;
+    color: #bdbdbd;
+}
+
+.movies-details-wrapper p {
+    margin: 6px 0;
+}
+
+.movies-details-wrapper p:first-child {
+    color: #f0f0f0;
+    font-weight: 600;
+}
+
+.movies-details-wrapper p:nth-child(2),
+.movies-details-wrapper p:nth-child(3) {
+    color: #999;
+}
+
+.movies-details-wrapper p:last-child {
+    margin-top: 10px;
+    color: #c8c8c8;
+    line-height: 1.6;
+}
+
+
+
 @media (max-width: 700px) {
 .nav {
 padding: 15px 20px;
