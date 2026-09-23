@@ -6,8 +6,13 @@ project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
 from backend.get_data import get_json_data
+from backend.database import db
 
 app = Flask(__name__)
+
+app.config['DATABASE'] = project_root / 'backend' / 'database' / 'users.db'
+
+db.init_app(app)
 
 @app.route('/')
 def base():
@@ -17,14 +22,14 @@ def base():
 def register():
     msg='test'
 
-    return render_template('register.html', msg=msg)
+    return render_template('auth/register.html', msg=msg)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg='test_login'
 
-    return render_template('login.html', msg=msg)
+    return render_template('auth/login.html', msg=msg)
 
 
 @app.route('/api/movies')
@@ -34,6 +39,7 @@ def get_data():
 
 
 if __name__ == '__main__':
+    
     app.run(debug=True)
 
 
