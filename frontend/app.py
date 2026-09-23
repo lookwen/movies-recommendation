@@ -13,6 +13,20 @@ app = Flask(__name__)
 def base():
     return render_template("base.html")
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    msg='test'
+
+    return render_template('register.html', msg=msg)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    msg='test_login'
+
+    return render_template('login.html', msg=msg)
+
+
 @app.route('/api/movies')
 def get_data():
     data = get_json_data()
