@@ -1,6 +1,8 @@
-from flask import Flask, render_template, url_for
-import os, sys
+from flask import Flask, render_template, url_for, session, request
+import os, sys, sqlite3, re
 from pathlib import Path
+
+
 
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
@@ -20,7 +22,32 @@ def base():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    msg='test'
+    msg=''
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+
+        con = sqlite3.connect(app.config['DATABASE'])
+        cur = con.cursor()
+        res = cur.execute(
+            "SELECT * FROM user WHERE username = ? OR email = ?", (username, email)
+        )
+        account = res.fetchone()
+
+        if account:
+            msg = 'Account already exists!'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            msg = 'Invalid email address!'
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            msg = 'Username must contain only letters and numbers!'
+        elif not username or not password or not email:
+            msg = 'Please fill out the form!'
+        else:
+            cur.execute("INSERT INTO user VALUES (NULL, ?, ?, ?)", (username, email, password))
+            con.commit()
+            msg = 'You have successfully registered!'
+        return render_template('auth/register.html', msg=msg)
 
     return render_template('auth/register.html', msg=msg)
 
@@ -39,7 +66,6 @@ def get_data():
 
 
 if __name__ == '__main__':
-    
     app.run(debug=True)
 
 
