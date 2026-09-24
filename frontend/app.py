@@ -8,14 +8,14 @@ project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
 from backend.get_data import get_json_data
-from backend.database import db
+from backend.database import db as _db
 
 app = Flask(__name__)
 
 app.config['DATABASE'] = project_root / 'backend' / 'database' / 'users.db'
 app.config['SECRET_KEY'] = 'dev-secret-key-change-later'
 
-db.init_app(app)
+_db.init_app(app)
 
 @app.route('/')
 def base():
@@ -29,9 +29,9 @@ def register():
         password = request.form['password']
         email = request.form['email']
 
-        con = sqlite3.connect(app.config['DATABASE'])
-        cur = con.cursor()
-        res = cur.execute(
+        db = _db.get_db()
+
+        res = db.execute(
             "SELECT * FROM user WHERE username = ? OR email = ?", (username, email)
         )
         account = res.fetchone()
@@ -45,10 +45,10 @@ def register():
         elif not username or not password or not email:
             msg = 'Please fill out the form!'
         else:
-            cur.execute("INSERT INTO user VALUES (NULL, ?, ?, ?)", (username, email, password))
-            con.commit()
+            db.execute("INSERT INTO user VALUES (NULL, ?, ?, ?)", (username, email, password))
+            db.commit()
             msg = 'You have successfully registered!'
-        return redirect(url_for('login'))
+        return render_template('auth/register.html', msg=msg)
 
     return render_template('auth/register.html', msg=msg)
 
@@ -60,10 +60,8 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        con = sqlite3.connect(app.config['DATABASE'])
-        con.row_factory = sqlite3.Row
-        cur = con.cursor()
-        res = cur.execute('SELECT * FROM user WHERE username = ? AND password = ?', (username, password))
+        db = _db.get_db()
+        res = db.execute('SELECT * FROM user WHERE username = ? AND password = ?', (username, password))
         account = res.fetchone()
 
         if account:
