@@ -13,10 +13,20 @@
             <a class="section-button" href="{{ url_for('base') }}">Wszystkie filmy</a>
             <a class="section-button">Polecane filmy</a>
         </div>
+
         <div class="logging-wrap">
-            <a class="logging-buttons" href="{{ url_for('login') }}">Zaloguj</a>
-            <a class="logging-buttons" href="{{ url_for('register') }}">Zarejestruj</a>
+            {% if session.get('loggedin') %}
+                <div class="user-panel"> 
+                    <a href="#" class="user-avatar"> {{ session['username'][0].upper() }} </a> 
+                    <span class="username"> {{ session['username'] }} </span>
+                    <a class="logout-button" href="{{ url_for('logout') }}"> Wyloguj </a>
+                </div>
+            {% else %}
+                <a class="logging-buttons" href="{{ url_for('login') }}">Zaloguj</a>
+                <a class="logging-buttons" href="{{ url_for('register') }}">Zarejestruj</a>
+            {% endif %}
         </div>
+        
     </div>
 
     <div class="content">

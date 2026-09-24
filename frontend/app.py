@@ -73,6 +73,10 @@ def login():
             msg = 'Incorrect login/password!'
     return render_template('auth/login.html', msg=msg)
 
+@app.route('/logout')
+def logout():
+    pass
+
 
 @app.route('/api/movies')
 def get_data():
