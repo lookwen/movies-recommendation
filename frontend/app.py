@@ -75,7 +75,10 @@ def login():
 
 @app.route('/logout')
 def logout():
-    pass
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    return redirect(url_for('base'))
 
 
 @app.route('/api/movies')
