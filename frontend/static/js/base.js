@@ -40,6 +40,12 @@ function createMoviesDetails(jsonElement, moviesWrapper){
     plotDetails.innerText = jsonElement.Plot;
     movieDetails.appendChild(plotDetails);
 
+    const rateDetails = document.createElement('a');
+    rateDetails.href = `/rate/${jsonElement.Id}`;
+    rateDetails.classList.add("rate-details");
+    rateDetails.innerText = "Oceń Film";
+    movieDetails.appendChild(rateDetails);
+
 }
 
 

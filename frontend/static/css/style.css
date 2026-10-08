@@ -212,6 +212,18 @@ color: #f0c75e;
     text-decoration: underline;
 }
 
+.rate-details{
+    margin-top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #c8c8c8;
+}
+
+.rate-details:hover{
+    color: rgb(233, 166, 166);
+    text-decoration: underline;
+}
+
 
 
 

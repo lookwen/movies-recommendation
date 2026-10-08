@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Oceń film</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/rate.css') }}">
+</head>
+
+<body>
+
+    <div class="rating-container">
+
+        <h1>Oceń film</h1>
+
+        
+        <h2>{{ movie.title }}</h2>
+
+        <p class="description">
+            Jak oceniasz ten film?
+        </p>
+
+        <form action="{{ url_for('rate_movie', movie_id=movie.id) }}" method="POST">
+
+            <div class="rating-options">
+
+                <label>
+                    <input type="radio" name="rating" value="1" required>
+                    <span>1</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="rating" value="2">
+                    <span>2</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="rating" value="3">
+                    <span>3</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="rating" value="4">
+                    <span>4</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="rating" value="5">
+                    <span>5</span>
+                </label>
+
+            </div>
+
+            <div class="rating-labels">
+                <span>Bardzo źle</span>
+                <span>Świetnie</span>
+            </div>
+
+            <button type="submit" class="submit-button">
+                Oceń film
+            </button>
+
+        </form>
+
+        <a href="{{ url_for('base') }}" class="back-button">
+            ← Wróć do filmów
+        </a>
+
+    </div>
+
+</body>
+</html>

@@ -9,6 +9,12 @@ def get_json_data(filename):
 
 movies = get_json_data('movies.json')
 
-for m in movies['movies']:
-    m['Genre'] = m['Genre'].replace(",", " ").split()
-    print(m['Genre'])
+for i in range(len(movies['movies'])):
+    movies['movies'][i]['Id'] = i
+
+def save_json_data(filename):
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(movies, f)
+
+
+save_json_data("new_movies.json")

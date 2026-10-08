@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, session, request, redirect
+from flask_login import login_required
 import os, sys, sqlite3, re
 from pathlib import Path
 
@@ -79,6 +80,18 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     return redirect(url_for('base'))
+
+
+
+#TODO Adding rating to a movie
+
+
+
+@app.route('/rate', methods=['GET', 'POST'])
+@login_required
+def create():
+    return render_template('rate/rate.html', movie='test')
+
 
 
 @app.route('/api/movies')
