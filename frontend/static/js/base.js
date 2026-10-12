@@ -58,8 +58,7 @@ function createMoviesElements(jsonData){
             movieWrap.classList.add('movie-wrap');
             moviesWrapper.appendChild(movieWrap);
 
-            createMoviesDetails(element, moviesWrapper);
-
+            
             const titleElem = document.createElement('p');
             titleElem.innerText = element.Title;
             titleElem.classList.add('movie-title');
@@ -77,13 +76,14 @@ function createMoviesElements(jsonData){
             const imageElem = document.createElement('img');
             imageElem.classList.add('movie-image')
             imageElem.src = element.Poster;
-
+            
             imageElem.addEventListener('error', () => {
                 movieWrap.style.display = 'none';
             });
-
+            
             imageWrap.appendChild(imageElem);
-
+            
+            createMoviesDetails(element, movieWrap);
         });
     }
     catch(error){
@@ -102,15 +102,16 @@ async function mainFunc(){
 
         const moviesWraps = document.querySelectorAll('.movie-wrap');
 
-        moviesWraps.forEach((element) =>{
-            element.addEventListener('click', (button) =>{
-                const currentElement = button.currentTarget;
-                const detailsElement = currentElement.nextElementSibling;
+        moviesWraps.forEach((element) => {
+            element.addEventListener('click', (event) => {
+                const currentElement = event.currentTarget;
+                const detailsElement = currentElement.querySelector(
+                    '.movies-details-wrapper'
+                );
 
-                if(detailsElement){
+                if (detailsElement) {
                     detailsElement.classList.toggle('non-visible');
                 }
-
             });
         });
 

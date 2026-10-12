@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, session, request, redirect
 import os, sys, sqlite3, re
 from pathlib import Path
+import flash
 
 
 
@@ -94,7 +95,10 @@ def rate_movie(movie_id):
     movie = data['movies'][movie_id]
     title = movie['Title']
     img = movie['Poster']
-    
+
+    if not session.get('user_id'):
+        #flash('Musisz się zalogować, aby móc ocenić film.')
+        return redirect(url_for('login'))
     return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img)
 
 
