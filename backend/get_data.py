@@ -22,4 +22,5 @@ def get_json_data():
 
 if __name__ == '__main__':
     data = get_json_data()
-    print(data)
+    movie = data['movies'][0]
+    print(movie)

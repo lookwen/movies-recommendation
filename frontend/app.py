@@ -1,5 +1,4 @@
 from flask import Flask, render_template, url_for, session, request, redirect
-from flask_login import login_required, login_manager
 import os, sys, sqlite3, re
 from pathlib import Path
 
@@ -17,6 +16,8 @@ app.config['DATABASE'] = project_root / 'backend' / 'database' / 'users.db'
 app.config['SECRET_KEY'] = 'dev-secret-key-change-later'
 
 _db.init_app(app)
+
+
 
 @app.route('/')
 def base():
@@ -87,11 +88,14 @@ def logout():
 
 
 
-@app.route('/rate/<int:id>', methods=['GET', 'POST'])
-@login_required
-def create(id):
-
-    return render_template('rate/rate.html', movie='test')
+@app.route('/rate/<int:movie_id>', methods=['GET', 'POST'])
+def rate_movie(movie_id):
+    data = get_json_data()
+    movie = data['movies'][movie_id]
+    title = movie['Title']
+    img = movie['Poster']
+    
+    return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img)
 
 
 

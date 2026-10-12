@@ -16,13 +16,13 @@
         <h1>Oceń film</h1>
 
         
-        <h2>{{ movie.title }}</h2>
+        <h2>{{ title }}</h2>
 
         <p class="description">
             Jak oceniasz ten film?
         </p>
 
-        <form action="{{ url_for('rate_movie', movie_id=movie.id) }}" method="POST">
+        <form action="{{ url_for('rate_movie', movie_id=movie_id) }}" method="POST">
 
             <div class="rating-options">
 
