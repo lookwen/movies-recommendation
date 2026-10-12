@@ -1,7 +1,6 @@
-from flask import Flask, render_template, url_for, session, request, redirect
+from flask import Flask, render_template, url_for, session, request, redirect, flash
 import os, sys, sqlite3, re
 from pathlib import Path
-import flash
 
 
 
@@ -69,7 +68,7 @@ def login():
 
         if account:
             session['loggedin'] = True
-            session['id'] = account['id']
+            session['user_id'] = account['id']
             session['username'] = account['username']
             return render_template('base.html', msg='Logged in successfully!')
         else:
