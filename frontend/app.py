@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, session, request, redirect
-from flask_login import login_required
+from flask_login import login_required, login_manager
 import os, sys, sqlite3, re
 from pathlib import Path
 
@@ -87,9 +87,10 @@ def logout():
 
 
 
-@app.route('/rate', methods=['GET', 'POST'])
+@app.route('/rate/<int:id>', methods=['GET', 'POST'])
 @login_required
-def create():
+def create(id):
+
     return render_template('rate/rate.html', movie='test')
 
 
