@@ -15,7 +15,7 @@ CREATE TABLE movies(
     title TEXT NOT NULL,
     genre TEXT NOT NULL,
     release_date TEXT,
-    duration_time TEXT NOT NULL,
+    runtime TEXT NOT NULL,
     plot TEXT,
     average_rating TEXT NOT NULL
 );
