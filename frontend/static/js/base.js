@@ -25,23 +25,23 @@ function createMoviesDetails(jsonElement, moviesWrapper){
     moviesWrapper.appendChild(movieDetails);
 
     const genresDetails = document.createElement('p');
-    genresDetails.innerText = jsonElement.Genre;
+    genresDetails.innerText = jsonElement.genre;
     movieDetails.appendChild(genresDetails);
 
     const yearDetails = document.createElement('p');
-    yearDetails.innerText = jsonElement.Released;
+    yearDetails.innerText = jsonElement.release_date;
     movieDetails.appendChild(yearDetails);
 
     const runtimeDetails = document.createElement('p');
-    runtimeDetails.innerText = jsonElement.Runtime;
+    runtimeDetails.innerText = jsonElement.runtime;
     movieDetails.appendChild(runtimeDetails);
 
     const plotDetails = document.createElement('p');
-    plotDetails.innerText = jsonElement.Plot;
+    plotDetails.innerText = jsonElement.plot;
     movieDetails.appendChild(plotDetails);
 
     const rateDetails = document.createElement('a');
-    rateDetails.href = `/rate/${jsonElement.Id}`;
+    rateDetails.href = `/rate/${jsonElement.id}`;
     rateDetails.classList.add("rate-details");
     rateDetails.innerText = "Oceń Film";
     movieDetails.appendChild(rateDetails);
@@ -53,19 +53,19 @@ function createMoviesElements(jsonData){
     const moviesWrapper = document.querySelector(".movies-wrapper");
 
     try{
-        jsonData.movies.forEach(element => {
+        jsonData.forEach(element => {
             const movieWrap = document.createElement('div');
             movieWrap.classList.add('movie-wrap');
             moviesWrapper.appendChild(movieWrap);
 
             
             const titleElem = document.createElement('p');
-            titleElem.innerText = element.Title;
+            titleElem.innerText = element.title;
             titleElem.classList.add('movie-title');
             movieWrap.appendChild(titleElem);
 
             const ratingElem = document.createElement('p');
-            ratingElem.innerText = element.Ratings[0].Value;
+            ratingElem.innerText = element.average_rating
             ratingElem.classList.add('movie-rating');
             movieWrap.appendChild(ratingElem);
 
@@ -75,7 +75,7 @@ function createMoviesElements(jsonData){
 
             const imageElem = document.createElement('img');
             imageElem.classList.add('movie-image')
-            imageElem.src = element.Poster;
+            imageElem.src = element.poster;
             
             imageElem.addEventListener('error', () => {
                 movieWrap.style.display = 'none';
@@ -97,6 +97,7 @@ function createMoviesElements(jsonData){
 async function mainFunc(){
     try{
         const moviesJsonData = await getJsonData();
+        //console.log(moviesJsonData)
 
         createMoviesElements(moviesJsonData);
 

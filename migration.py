@@ -39,13 +39,34 @@ def migrate_movies():
         raise Exception
 
     
-        
+def insert_poster():
+    data = get_json_data()
+    movies = data['movies']
 
+    try:
+        conn = sqlite3.connect(database_path)
+        cursor = conn.cursor()
+
+        cursor.execute("ALTER TABLE movies ADD COLUMN poster TEXT")
+        conn.commit()
+
+        for m in movies:
+            cursor.execute(
+                "UPDATE movies SET poster = ? WHERE id = ?",
+                (m['Poster'], m['Id'])
+            )
+
+        conn.commit()
+        conn.close()
+
+    except:
+        raise Exception
     
 
 
 if __name__ == '__main__':
     #migrate_movies()
+    #insert_poster()
     print("Done")
 
 

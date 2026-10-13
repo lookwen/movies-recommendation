@@ -34,10 +34,10 @@ def get_movies_from_db():
 
 
 def crete_json_from_rows(rows):
-    json_object = {"movies" : []}
+    json_object = []
     
     for row in rows:
-        json_object["movies"].append(dict(row))
+        json_object.append(dict(row))
 
     return json_object
 

@@ -112,7 +112,6 @@ def rate_movie(movie_id):
 
 @app.route('/api/movies')
 def get_data():
-    data = get_json_data()
     _data = get_movies_from_db()
 
     return _data
