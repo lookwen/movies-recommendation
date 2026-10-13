@@ -4,6 +4,8 @@ import sys
 
 project_root = Path(__file__).resolve().parent.parent
 
+from backend.database import db as _db
+
 def get_json_data():
     try:
         filename = 'new_movies.json'
@@ -16,11 +18,29 @@ def get_json_data():
             return json_content
 
     except:
-        raise Exception
+        raise FileNotFoundError
 
+def get_movies_from_db():
+    try:
+        db = _db.get_db()
+        res = db.execute('SELECT * FROM movies')
+        rows = res.fetchall()
+
+        data_json = crete_json_from_rows(rows)
+        return data_json
+
+    except:
+        raise Exception 
+
+
+def crete_json_from_rows(rows):
+    json_object = {"movies" : []}
+    
+    for row in rows:
+        json_object["movies"].append(dict(row))
+
+    return json_object
 
 
 if __name__ == '__main__':
-    data = get_json_data()
-    movie = data['movies'][0]
-    print(movie)
+    get_movies_from_db()

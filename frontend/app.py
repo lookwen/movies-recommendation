@@ -7,7 +7,7 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
-from backend.get_data import get_json_data
+from backend.get_data import get_json_data, get_movies_from_db
 from backend.database import db as _db
 
 app = Flask(__name__)
@@ -113,7 +113,9 @@ def rate_movie(movie_id):
 @app.route('/api/movies')
 def get_data():
     data = get_json_data()
-    return data
+    _data = get_movies_from_db()
+
+    return _data
 
 
 if __name__ == '__main__':

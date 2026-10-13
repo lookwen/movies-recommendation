@@ -45,6 +45,7 @@ def migrate_movies():
 
 
 if __name__ == '__main__':
-    migrate_movies()
+    #migrate_movies()
+    print("Done")
 
 
