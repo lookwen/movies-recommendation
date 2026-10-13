@@ -98,6 +98,14 @@ def rate_movie(movie_id):
     if not session.get('user_id'):
         #flash('Musisz się zalogować, aby móc ocenić film.')
         return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        user_id = session['user_id']
+        rating = request.form['rating']
+
+        db = _db.get_db()
+        
+
     return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img)
 
 

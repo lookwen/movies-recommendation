@@ -11,9 +11,13 @@ CREATE TABLE users(
 );
 
 CREATE TABLE movies(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
-    genre TEXT NOT NULL
+    genre TEXT NOT NULL,
+    release_date TEXT,
+    duration_time TEXT NOT NULL,
+    plot TEXT,
+    average_rating TEXT NOT NULL
 );
 
 CREATE TABLE ratings(
