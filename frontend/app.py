@@ -99,14 +99,27 @@ def rate_movie(movie_id):
         #flash('Musisz się zalogować, aby móc ocenić film.')
         return redirect(url_for('login'))
 
+    msg=''
     if request.method == 'POST':
         user_id = session['user_id']
-        rating = request.form['rating']
+        value = request.form['rating']
 
         db = _db.get_db()
-        
+        res = db.execute("SELECT * FROM ratings WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+        existing_rating = res.fetchone()
 
-    return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img)
+        if existing_rating:
+            msg = "You have already rated this movie."
+            return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img, msg=msg)
+
+        db.execute(
+            "INSERT INTO ratings (user_id, movie_id, value) VALUES (?, ?, ?)",
+            (user_id, movie_id, value)
+        )
+        db.commit()
+        return redirect(url_for('base'))
+        
+    return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img, msg=msg)
 
 
 

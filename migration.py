@@ -33,10 +33,12 @@ def migrate_movies():
     )
             
         conn.commit()
-        conn.close()
 
     except:
         raise Exception
+    finally:
+        conn.close()
+
 
     
 def insert_poster():
@@ -57,16 +59,43 @@ def insert_poster():
             )
 
         conn.commit()
-        conn.close()
 
     except:
         raise Exception
-    
+    finally:
+        conn.close()
+
+
+def create_ratings():
+    try:
+        conn = sqlite3.connect(database_path)
+        cursor = conn.cursor()
+
+        cursor.execute(
+            """
+                CREATE TABLE IF NOT EXISTS ratings(
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    movie_id INTEGER NOT NULL,
+                    value INTEGER CHECK (value > 0 AND value <= 5),
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (movie_id) REFERENCES movies(id),
+                    UNIQUE(user_id, movie_id)
+                    )
+            """)
+        conn.commit()
+
+    except:
+        raise Exception
+    finally:
+        conn.close()
 
 
 if __name__ == '__main__':
     #migrate_movies()
     #insert_poster()
+    #create_ratings()
+
     print("Done")
 
 
