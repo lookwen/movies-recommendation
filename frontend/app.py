@@ -122,6 +122,27 @@ def rate_movie(movie_id):
     return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img, msg=msg)
 
 
+@app.route('/raitings')
+def get_my_raitings():
+    
+    if not session.get('user_id'):
+        return redirect(url_for('login'))
+    
+    msg=''
+
+    user_id = session['user_id']
+    db = _db.get_db()
+    res = db.execute("SELECT * FROM ratings WHERE user_id = ?", (user_id,))
+
+    ratings = res.fetchall()
+
+    if not ratings:
+        ratings = None
+
+    return render_template('my_ratings.html', ratings=ratings)
+
+
+
 
 @app.route('/api/movies')
 def get_data():
