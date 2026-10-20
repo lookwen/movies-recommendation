@@ -28,15 +28,15 @@
     </div>
 
     <div class="content">
-        {% if ratings == None %}
-        <div>Nic nie ma</div>
-        {% else %}
-        
-        <div>{{ ratings }}</div> 
+        <div class="ratings-wrapper">
+            
 
-        {% endif %}
+        </div>
+
+
     </div>
 
+    <script src="{{ url_for('static', filename='js/my_ratings.js') }}"></script>
 
 </body>
 </html>

@@ -41,6 +41,23 @@ def crete_json_from_rows(rows):
 
     return json_object
 
+def get_ratings_from_db(user_id):
+    try:
+        db = _db.get_db()
+        res = db.execute("SELECT * FROM ratings JOIN movies ON ratings.movie_id = movies.id WHERE user_id = ?", (user_id,))
+    
+        ratings = res.fetchall()
+    
+        if not ratings:
+            rows = None
+        else:
+            rows = [dict(row) for row in ratings]
+        
+        return rows
+    
+    except:
+        raise Exception
+
 
 if __name__ == '__main__':
     get_movies_from_db()

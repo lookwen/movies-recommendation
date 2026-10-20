@@ -7,7 +7,7 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
-from backend.get_data import get_json_data, get_movies_from_db
+from backend.get_data import get_json_data, get_movies_from_db, get_ratings_from_db
 from backend.database import db as _db
 
 app = Flask(__name__)
@@ -131,17 +131,24 @@ def get_my_raitings():
     msg=''
 
     user_id = session['user_id']
-    db = _db.get_db()
-    res = db.execute("SELECT * FROM ratings WHERE user_id = ?", (user_id,))
-
-    ratings = res.fetchall()
-
-    if not ratings:
-        ratings = None
-
-    return render_template('my_ratings.html', ratings=ratings)
+    rows = get_ratings_from_db(user_id)
 
 
+
+    return render_template('my_ratings.html', ratings=rows)
+
+
+
+@app.route('/api/ratings')
+def get_ratings():
+    if not session.get('user_id'):
+        return None
+
+    user_id = session['user_id']
+    ratings = get_ratings_from_db(user_id)
+
+    return ratings
+    
 
 
 @app.route('/api/movies')
