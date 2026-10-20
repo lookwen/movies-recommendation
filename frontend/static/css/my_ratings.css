@@ -1,0 +1,136 @@
+
+
+.ratings-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 24px;
+    padding: 25px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.rating-wrap {
+    background-color: #1c1c1c;
+    border: 1px solid #2b2b2b;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 0;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.rating-wrap:hover {
+    transform: translateY(-4px);
+    border-color: #454545;
+}
+
+
+.movie-title {
+    color: #f5f5f5;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 14px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-wrap: anywhere;
+}
+
+
+.image-rating {
+    display: block;
+    width: 100%;
+    max-width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #252525;
+}
+
+
+
+.stars-elem {
+    color: #f5c518;
+    font-size: 25px;
+    letter-spacing: 2px;
+    margin: 16px 0 20px;
+    white-space: nowrap;
+}
+
+
+
+.rate-button {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 9px;
+    border: 1px solid #414141;
+    border-radius: 6px;
+    background-color: #292929;
+    color: #f2f2f2;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.rate-button:hover {
+    background-color: #383838;
+    border-color: #f5c518;
+}
+
+
+.rating-wrap .rate-button:last-child:hover {
+    background-color: #492626;
+    border-color: #d9534f;
+}
+
+
+
+@media (max-width: 600px) {
+    .ratings-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 16px 0;
+    }
+
+    .rating-wrap {
+        padding: 10px;
+    }
+
+    .movie-title {
+        font-size: 14px;
+        min-height: 40px;
+    }
+
+    .image-rating {
+        height: 200px;
+    }
+
+    .stars-elem {
+        font-size: 19px;
+        letter-spacing: 0;
+    }
+
+    .rate-button {
+        font-size: 12px;
+        padding: 9px 5px;
+    }
+}
+
+@media (max-width: 350px) {
+    .ratings-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .image-rating {
+        height: 260px;
+    }
+}
