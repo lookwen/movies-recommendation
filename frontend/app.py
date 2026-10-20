@@ -78,7 +78,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
-    session.pop('id', None)
+    session.pop('user_id', None)
     session.pop('username', None)
     return redirect(url_for('base'))
 
@@ -130,12 +130,7 @@ def get_my_raitings():
     
     msg=''
 
-    user_id = session['user_id']
-    rows = get_ratings_from_db(user_id)
-
-
-
-    return render_template('my_ratings.html', ratings=rows)
+    return render_template('my_ratings.html')
 
 
 
