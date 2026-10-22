@@ -127,6 +127,8 @@ def get_my_raitings():
     if not session.get('user_id'):
         return redirect(url_for('login'))
 
+    user_id = session['user_id']
+
     if request.method == 'POST':
         action = request.form.get('action')
         rate_id = request.form.get('rating_id')
@@ -137,9 +139,12 @@ def get_my_raitings():
             db.commit()
             
         elif action == 'edit':
-            new_value = request.form.get('value')
-            
-                
+            new_value = request.form.get('value', type=int)
+            res = db.execute("UPDATE ratings SET value = ? WHERE id = ? AND user_id = ?", (new_value, rate_id, user_id))
+            db.commit()
+
+        return redirect(url_for('get_my_raitings'))
+
     msg=''
 
     return render_template('my_ratings.html')
