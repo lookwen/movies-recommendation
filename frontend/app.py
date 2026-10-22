@@ -122,11 +122,16 @@ def rate_movie(movie_id):
     return render_template('rate/rate.html', movie_id=movie_id, title=title, img=img, msg=msg)
 
 
-@app.route('/raitings')
+@app.route('/raitings', methods=['GET', 'POST'])
 def get_my_raitings():
     
     if not session.get('user_id'):
         return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        pass
+
+    
     
     msg=''
 

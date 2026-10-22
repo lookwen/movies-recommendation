@@ -47,12 +47,14 @@ function createRatings(jsonData){
 
             const changeRateButton = document.createElement('button');
             changeRateButton.innerText = "Zmień ocenę";
-            changeRateButton.classList.add('rate-button');
+            changeRateButton.classList.add('rate-change-button');
+            changeRateButton.dataset.rateId = element.id;
             ratingWrap.appendChild(changeRateButton);
 
             const deleteRateButton = document.createElement('button');
             deleteRateButton.innerText = "Usuń ocenę";
-            deleteRateButton.classList.add('rate-button');
+            deleteRateButton.classList.add('rate-delete-button');
+            deleteRateButton.dataset.rateId = element.id;
             ratingWrap.appendChild(deleteRateButton);
             
             
@@ -68,6 +70,15 @@ async function mainFunc(){
     try{
         const jsonRatings = await getRatingsData();
         createRatings(jsonRatings);
+
+        const changeRatingButtons = document.querySelectorAll(".rate-change-button");
+        const deleteRatingButtons = document.querySelectorAll(".rate-delete-button");
+
+        deleteRatingButtons.forEach(element => {
+            element.addEventListener('click', (e) =>{
+                console.log("hej" + element.dataset.rateId);
+            });
+        });
 
     }
     catch(error){

@@ -66,7 +66,7 @@
 
 
 
-.rate-button {
+.rate-change-button, .rate-delete-button {
     width: 100%;
     padding: 10px 12px;
     margin-top: 9px;
@@ -81,13 +81,13 @@
                 border-color 0.2s ease;
 }
 
-.rate-button:hover {
+.rate-change-button:hover {
     background-color: #383838;
     border-color: #f5c518;
 }
 
 
-.rating-wrap .rate-button:last-child:hover {
+.rate-delete-button:hover {
     background-color: #492626;
     border-color: #d9534f;
 }
