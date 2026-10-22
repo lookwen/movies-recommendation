@@ -45,17 +45,54 @@ function createRatings(jsonData){
             starsElem.innerText = stars;
             ratingWrap.appendChild(starsElem);
 
+            const formChangeRateButton = document.createElement('form');
+            formChangeRateButton.method = 'POST';
+            ratingWrap.appendChild(formChangeRateButton);
+            
+            const ratingChangeIdInput = document.createElement('input');
+            ratingChangeIdInput.type = 'hidden';
+            ratingChangeIdInput.name = 'rating_id';
+            ratingChangeIdInput.value = element.id;
+            formChangeRateButton.appendChild(ratingChangeIdInput);
+
+            const formDeleteRateButton = document.createElement('form');
+            formDeleteRateButton.value = element.id;
+            formDeleteRateButton.action = `/raitings`;
+            formDeleteRateButton.method = 'POST';
+            ratingWrap.appendChild(formDeleteRateButton);
+
+            const ratingDeleteIdInput = document.createElement('input');
+            ratingDeleteIdInput.type = 'hidden';
+            ratingDeleteIdInput.name = 'rating_id';
+            ratingDeleteIdInput.value = element.id; 
+            formDeleteRateButton.appendChild(ratingDeleteIdInput);
+
+            const deleteActionInput = document.createElement('input');
+            deleteActionInput.type = 'hidden';
+            deleteActionInput.name = 'action';
+            deleteActionInput.value = 'delete';
+            formDeleteRateButton.appendChild(deleteActionInput);
+
+            const editActionInput = document.createElement('input');
+            editActionInput.type = 'hidden';
+            editActionInput.name = 'action';
+            editActionInput.value = 'edit';
+            formChangeRateButton.appendChild(editActionInput);
+            
+            
             const changeRateButton = document.createElement('button');
             changeRateButton.innerText = "Zmień ocenę";
             changeRateButton.classList.add('rate-change-button');
             changeRateButton.dataset.rateId = element.id;
-            ratingWrap.appendChild(changeRateButton);
-
+            changeRateButton.type = 'submit';
+            formChangeRateButton.appendChild(changeRateButton);
+            
             const deleteRateButton = document.createElement('button');
             deleteRateButton.innerText = "Usuń ocenę";
             deleteRateButton.classList.add('rate-delete-button');
             deleteRateButton.dataset.rateId = element.id;
-            ratingWrap.appendChild(deleteRateButton);
+            deleteRateButton.type = 'submit';
+            formDeleteRateButton.appendChild(deleteRateButton);
             
             
         });
@@ -73,12 +110,6 @@ async function mainFunc(){
 
         const changeRatingButtons = document.querySelectorAll(".rate-change-button");
         const deleteRatingButtons = document.querySelectorAll(".rate-delete-button");
-
-        deleteRatingButtons.forEach(element => {
-            element.addEventListener('click', (e) =>{
-                console.log("hej" + element.dataset.rateId);
-            });
-        });
 
     }
     catch(error){

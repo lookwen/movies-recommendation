@@ -129,9 +129,15 @@ def get_my_raitings():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-        pass
+        action = request.form.get('action')
+        rate_id = request.form.get('rating_id')
+        db = _db.get_db()
 
-    
+        if action == 'delete':
+            res = db.execute("DELETE FROM ratings WHERE id = ?", (rate_id,))
+            db.commit()
+        elif action == 'edit':
+            print("edit")
     
     msg=''
 
