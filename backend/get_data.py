@@ -1,8 +1,9 @@
-import json, os
+import json, os, sqlite3
 from pathlib import Path
 import sys
 
 project_root = Path(__file__).resolve().parent.parent
+sys.path.append(str(project_root))
 
 from backend.database import db as _db
 
@@ -59,5 +60,18 @@ def get_ratings_from_db(user_id):
         raise Exception
 
 
+def delete_users():
+    sqliteConnection = sqlite3.connect('database/users.db')
+    cursor = sqliteConnection.cursor()
+    cursor.execute("DELETE from user")
+    cursor.execute("DELETE from ratings")
+    sqliteConnection.commit()
+    cursor.close()
+
+
+
+
+
 if __name__ == '__main__':
-    get_movies_from_db()
+    #delete_users()
+    pass

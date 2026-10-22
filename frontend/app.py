@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, session, request, redirect, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import os, sys, sqlite3, re
 from pathlib import Path
 
@@ -16,6 +17,7 @@ app.config['DATABASE'] = project_root / 'backend' / 'database' / 'users.db'
 app.config['SECRET_KEY'] = 'dev-secret-key-change-later'
 
 _db.init_app(app)
+
 
 
 
@@ -47,9 +49,11 @@ def register():
         elif not username or not password or not email:
             msg = 'Please fill out the form!'
         else:
-            db.execute("INSERT INTO user VALUES (NULL, ?, ?, ?)", (username, email, password))
+            hashed_password = generate_password_hash(password)
+            db.execute("INSERT INTO user VALUES (NULL, ?, ?, ?)", (username, email, hashed_password))
             db.commit()
             msg = 'You have successfully registered!'
+            return redirect(url_for('login'))
         return render_template('auth/register.html', msg=msg)
 
     return render_template('auth/register.html', msg=msg)
@@ -63,10 +67,10 @@ def login():
         password = request.form['password']
 
         db = _db.get_db()
-        res = db.execute('SELECT * FROM user WHERE username = ? AND password = ?', (username, password))
+        res = db.execute('SELECT * FROM user WHERE username = ?', (username,))
         account = res.fetchone()
 
-        if account:
+        if account and check_password_hash(account['password'], password):
             session['loggedin'] = True
             session['user_id'] = account['id']
             session['username'] = account['username']

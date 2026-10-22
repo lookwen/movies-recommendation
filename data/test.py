@@ -17,4 +17,4 @@ def save_json_data(filename):
         json.dump(movies, f)
 
 
-save_json_data("new_movies.json")
+#save_json_data("new_movies.json")
