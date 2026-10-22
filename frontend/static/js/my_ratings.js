@@ -51,18 +51,17 @@ function createChangeForm(ratingWrap, element){
     ratingWrap.appendChild(formChangeRateButton);
     formChangeRateButton.classList.add('rating-change-form');
     
-    const ratingChangeIdInput = document.createElement('input');
-    ratingChangeIdInput.type = 'hidden';
-    ratingChangeIdInput.name = 'rating_id';
-    ratingChangeIdInput.value = element.id;
-    formChangeRateButton.appendChild(ratingChangeIdInput);
-
-
     const editActionInput = document.createElement('input');
     editActionInput.type = 'hidden';
     editActionInput.name = 'action';
     editActionInput.value = 'edit';
     formChangeRateButton.appendChild(editActionInput);
+
+    const ratingChangeIdInput = document.createElement('input');
+    ratingChangeIdInput.type = 'hidden';
+    ratingChangeIdInput.name = 'rating_id';
+    ratingChangeIdInput.value = element.id; 
+    formChangeRateButton.appendChild(ratingChangeIdInput);
     
 
 

@@ -135,9 +135,11 @@ def get_my_raitings():
         if action == 'delete':
             res = db.execute("DELETE FROM ratings WHERE id = ?", (rate_id,))
             db.commit()
+            
         elif action == 'edit':
-            print("edit")
-    
+            new_value = request.form.get('value')
+            
+                
     msg=''
 
     return render_template('my_ratings.html')
