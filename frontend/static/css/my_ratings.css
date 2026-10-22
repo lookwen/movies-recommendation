@@ -81,17 +81,85 @@
                 border-color 0.2s ease;
 }
 
-.rate-change-button:hover {
-    background-color: #383838;
+
+.rating-change-form {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+    margin-top: 9px;
+}
+
+.rating-value-input {
+    flex: 0 0 65px;
+    width: 65px;
+    min-width: 0;
+    margin: 0;
+    padding: 10px 6px;
+
+    border: 1px solid #414141;
+    border-radius: 6px;
+    background-color: #ede8e8;
+    color: #1c1c1c;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+
+    box-sizing: border-box;
+    outline: none;
+    appearance: auto;
+
+    transition: border-color 0.2s ease,
+                background-color 0.2s ease;
+}
+
+.rating-value-input:hover {
+    border-color: #666;
+}
+
+.rating-value-input:focus {
     border-color: #f5c518;
+    background-color: #fff;
 }
 
+.save-rate-button {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 10px 8px;
 
-.rate-delete-button:hover {
-    background-color: #492626;
-    border-color: #d9534f;
+    border: 1px solid #f5c518;
+    border-radius: 6px;
+    background-color: #f5c518;
+    color: #1c1c1c;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
 }
 
+.save-rate-button:hover {
+    background-color: #ffd633;
+    border-color: #ffd633;
+}
+
+.save-rate-button:active {
+    transform: scale(0.98);
+}
+
+.save-rate-button:focus-visible {
+    outline: 2px solid #f5c518;
+    outline-offset: 3px;
+}
 
 
 @media (max-width: 600px) {

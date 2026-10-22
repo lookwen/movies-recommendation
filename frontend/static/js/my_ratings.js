@@ -47,7 +47,9 @@ function createDeleteForm(ratingWrap, element){
 function createChangeForm(ratingWrap, element){
     const formChangeRateButton = document.createElement('form');
     formChangeRateButton.method = 'POST';
+    formChangeRateButton.action = '/raitings';
     ratingWrap.appendChild(formChangeRateButton);
+    formChangeRateButton.classList.add('rating-change-form');
     
     const ratingChangeIdInput = document.createElement('input');
     ratingChangeIdInput.type = 'hidden';
@@ -62,13 +64,28 @@ function createChangeForm(ratingWrap, element){
     editActionInput.value = 'edit';
     formChangeRateButton.appendChild(editActionInput);
     
-    
-    const changeRateButton = document.createElement('button');
-    changeRateButton.innerText = "Zmień ocenę";
-    changeRateButton.classList.add('rate-change-button');
-    changeRateButton.dataset.rateId = element.id;
-    changeRateButton.type = 'submit';
-    formChangeRateButton.appendChild(changeRateButton);
+
+
+    const ratingValueInput = document.createElement('input');
+    ratingValueInput.classList.add('rating-value-input');
+    ratingValueInput.type = 'number';
+    ratingValueInput.name = 'value';
+    ratingValueInput.min = '1';
+    ratingValueInput.max = '5';
+    ratingValueInput.step = '1';
+    ratingValueInput.value = element.value; 
+
+    formChangeRateButton.appendChild(ratingValueInput);
+
+
+    const saveRateButton = document.createElement('button');
+    saveRateButton.classList.add('save-rate-button');
+    saveRateButton.type = 'submit';
+    saveRateButton.innerText = 'Zapisz ocenę';
+
+    formChangeRateButton.appendChild(saveRateButton);
+
+
 }
 
 function createRatings(jsonData){
@@ -104,7 +121,7 @@ function createRatings(jsonData){
             createChangeForm(ratingWrap, element);
             createDeleteForm(ratingWrap, element);
 
-            
+
             
             
         });
@@ -120,8 +137,6 @@ async function mainFunc(){
         const jsonRatings = await getRatingsData();
         createRatings(jsonRatings);
 
-        const changeRatingButtons = document.querySelectorAll(".rate-change-button");
-        const deleteRatingButtons = document.querySelectorAll(".rate-delete-button");
 
     }
     catch(error){
