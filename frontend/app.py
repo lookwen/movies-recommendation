@@ -124,7 +124,6 @@ def rate_movie(movie_id):
 
 @app.route('/raitings', methods=['GET', 'POST'])
 def get_my_raitings():
-    
     if not session.get('user_id'):
         return redirect(url_for('login'))
 
