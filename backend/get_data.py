@@ -69,9 +69,27 @@ def delete_users():
     cursor.close()
 
 
+def update_movies():
+    try:
+        sqliteConnection = sqlite3.connect('database/users.db')
+        cursor = sqliteConnection.cursor()
+        json_data = get_json_data()
+        cursor.execute("ALTER TABLE movies ADD COLUMN director TEXT")
+        cursor.execute("ALTER TABLE movies ADD COLUMN writer TEXT")
+        cursor.execute("ALTER TABLE movies ADD COLUMN actors TEXT")
+    
+        for m in json_data['movies']:
+            cursor.execute("UPDATE movies SET director = ? WHERE id = ?", (m['Director'], m["Id"]))
+            cursor.execute("UPDATE movies SET writer = ? WHERE id = ?", (m['Writer'], m["Id"]))
+            cursor.execute("UPDATE movies SET actors = ? WHERE id = ?", (m['Actors'], m["Id"]))
+        
+        sqliteConnection.commit()
+        cursor.close()
+    except:
+        raise Exception
+
 
 
 
 if __name__ == '__main__':
-    #delete_users()
     pass

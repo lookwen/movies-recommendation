@@ -17,7 +17,11 @@ CREATE TABLE movies(
     release_date TEXT,
     runtime TEXT NOT NULL,
     plot TEXT,
-    average_rating TEXT NOT NULL
+    poster TEXT,
+    average_rating TEXT NOT NULL,
+    director TEXT,
+    writer TEXT,
+    actors TEXT
 );
 
 CREATE TABLE ratings(
