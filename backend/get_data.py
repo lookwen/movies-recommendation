@@ -56,14 +56,15 @@ def get_ratings_from_db(user_id):
         
         return rows
     
-    except:
+    except Exception as e:
+        print(e)
         raise Exception
 
 
 def delete_users():
     sqliteConnection = sqlite3.connect('database/users.db')
     cursor = sqliteConnection.cursor()
-    cursor.execute("DELETE from user")
+    #cursor.execute("DELETE from user")
     cursor.execute("DELETE from ratings")
     sqliteConnection.commit()
     cursor.close()
@@ -92,4 +93,5 @@ def update_movies():
 
 
 if __name__ == '__main__':
+    delete_users()
     pass
