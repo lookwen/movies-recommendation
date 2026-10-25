@@ -58,7 +58,7 @@ def get_all_ratings_from_db():
     except:
         raise Exception
 
-def get_ratings_from_db(user_id):
+def get_ratings_by_user_from_db(user_id):
     try:
         db = _db.get_db()
         res = db.execute("SELECT * FROM ratings JOIN movies ON ratings.movie_id = movies.id WHERE user_id = ?", (user_id,))

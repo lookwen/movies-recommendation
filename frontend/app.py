@@ -9,6 +9,7 @@ project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
 from backend.get_data import *
+from backend.algorithms.data_summary import *
 from backend.database import db as _db
 
 
@@ -160,7 +161,7 @@ def get_recommended():
     
     user_id = session.get('user_id')
 
-    ratings = get_all_users_from_db()
+    ratings = get_average_movie_ratings()
     return render_template('recommended.html', ratings=ratings)
 
 
@@ -170,7 +171,7 @@ def get_ratings():
         return None
 
     user_id = session['user_id']
-    ratings = get_ratings_from_db(user_id)
+    ratings = get_ratings_by_user_from_db(user_id)
 
     return ratings
     
