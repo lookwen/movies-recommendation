@@ -42,6 +42,22 @@ def crete_json_from_rows(rows):
 
     return json_object
 
+def get_all_ratings_from_db():
+    try:
+        db = _db.get_db()
+        res = db.execute("SELECT * FROM ratings JOIN movies ON ratings.movie_id = movies.id")
+        ratings = res.fetchall()
+
+        if not ratings:
+            rows = None
+        else:
+            rows = [dict(row) for row in ratings]
+
+        return rows
+        
+    except:
+        raise Exception
+
 def get_ratings_from_db(user_id):
     try:
         db = _db.get_db()
@@ -59,12 +75,45 @@ def get_ratings_from_db(user_id):
     except Exception as e:
         print(e)
         raise Exception
+    
+def get_ratings_by_movie_from_db(movie_id):
+    try:
+        db = _db.get_db()
+        res = db.execute("SELECT * FROM ratings JOIN movies ON ratings.movie_id = movies.id WHERE movie_id = ?", (movie_id,))
+        
+        ratings = res.fetchall()
+
+        if not ratings:
+            rows = None
+        else:
+            rows = [dict(row) for row in ratings]
+
+        return rows
+
+    except:
+        raise Exception
+
+def get_all_users_from_db():
+    try:
+        db = _db.get_db()
+        res = db.execute("SELECT username FROM user")
+        users = res.fetchall()
+
+        if not users:
+            rows = None
+        else:
+            rows = [dict(row) for row in users]
+
+        return rows
+
+    except:
+        raise Exception
 
 
 def delete_users():
     sqliteConnection = sqlite3.connect('database/users.db')
     cursor = sqliteConnection.cursor()
-    #cursor.execute("DELETE from user")
+    cursor.execute("DELETE from user")
     cursor.execute("DELETE from ratings")
     sqliteConnection.commit()
     cursor.close()
@@ -93,5 +142,5 @@ def update_movies():
 
 
 if __name__ == '__main__':
-    delete_users()
+    #delete_users()
     pass

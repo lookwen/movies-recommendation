@@ -8,8 +8,9 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.append(str(project_root))
 
-from backend.get_data import get_json_data, get_movies_from_db, get_ratings_from_db
+from backend.get_data import *
 from backend.database import db as _db
+
 
 app = Flask(__name__)
 
@@ -154,6 +155,13 @@ def get_my_raitings():
 
     return render_template('my_ratings.html')
 
+@app.route('/recommended')
+def get_recommended():
+    
+    user_id = session.get('user_id')
+
+    ratings = get_all_users_from_db()
+    return render_template('recommended.html', ratings=ratings)
 
 
 @app.route('/api/ratings')
