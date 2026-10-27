@@ -22,31 +22,23 @@ def create_user_movie_matrix(users, movies, ratings):
 
 
 def cosine_similarity(movie_a, movie_b):
-    suma = 0
-    sum_div_a = 0
-    sum_div_b = 0
-    counter = 0
-    for i in range(len(movie_a)):
-        if not np.isnan(movie_a[i]) and not np.isnan(movie_b[i]):
-            a = movie_a[i]-3
-            b = movie_b[i]-3
+    mask = ~np.isnan(movie_a) & ~np.isnan(movie_b)
 
-            suma += a*b
-            sum_div_a += a**2
-            sum_div_b += b**2
-            counter += 1
-        
-    divider = math.sqrt(sum_div_a) * math.sqrt(sum_div_b)
-    
-    if divider == 0 or counter < 3:
+    if np.count_nonzero(mask) < 3:
         return 0.0
 
-    return suma / divider
+    a = movie_a[mask] - 3
+    b = movie_b[mask] - 3
+
+    denominator = np.linalg.norm(a) * np.linalg.norm(b)
+
+    if denominator == 0:
+        return 0.0
+
+    return float(np.dot(a, b) / denominator)
 
 
     
-
-
 
 def create_similarity_matrix(user_movie_matrix, all_movies):
     matrix = np.zeros((len(all_movies), len(all_movies)), dtype=float)
