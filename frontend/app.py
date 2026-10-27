@@ -161,7 +161,7 @@ def get_recommended():
     
     user_id = session.get('user_id')
 
-    ratings = get_average_movie_ratings()
+    ratings = get_top_movies_id()
     return render_template('recommended.html', ratings=ratings)
 
 
@@ -181,6 +181,12 @@ def get_ratings():
 def get_data():
     _data = get_movies_from_db()
 
+    return _data
+
+@app.route('/api/movies_id')
+def get_id_list():
+    _data = get_top_movies_id()
+    
     return _data
 
 

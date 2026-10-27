@@ -64,13 +64,22 @@ padding: 40px;
 
 }
 
-.movies-wrapper {
+.movies-wrapper, .best-movies {
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 gap: 28px;
 
 }
 
+.movies-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #f5f5f5;
+    margin: 30px 0 20px;
+    padding-left: 15px;
+    border-left: 4px solid #f5c518;
+    letter-spacing: 0.5px;
+}
 
 
 .movie-wrap {

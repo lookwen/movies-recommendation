@@ -1,6 +1,6 @@
 
-async function getJsonData(){
-    try{
+export async function getJsonData(){
+    try {
         const response = await fetch('api/movies');
     
         if(!response.ok){
@@ -18,7 +18,7 @@ async function getJsonData(){
 
 }
 
-function createMoviesDetails(jsonElement, moviesWrapper){
+export function createMoviesDetails(jsonElement, moviesWrapper){
     const movieDetails = document.createElement('div');
     movieDetails.classList.add('movies-details-wrapper');
     movieDetails.classList.add('non-visible');
@@ -49,9 +49,8 @@ function createMoviesDetails(jsonElement, moviesWrapper){
 }
 
 
-function createMoviesElements(jsonData){
-    const moviesWrapper = document.querySelector(".movies-wrapper");
-
+export function createMoviesElements(jsonData, moviesWrapper){
+    
     try{
         jsonData.forEach(element => {
             const movieWrap = document.createElement('div');
@@ -98,8 +97,10 @@ async function mainFunc(){
     try{
         const moviesJsonData = await getJsonData();
         //console.log(moviesJsonData)
+        
+        const moviesWrapper = document.querySelector(".movies-wrapper");
 
-        createMoviesElements(moviesJsonData);
+        createMoviesElements(moviesJsonData, moviesWrapper);
 
         const moviesWraps = document.querySelectorAll('.movie-wrap');
 
