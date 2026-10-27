@@ -43,10 +43,24 @@ async function mainFunc(){
         //console.log(jsonData);
 
         const bestMoviesWrapper = document.querySelector(".best-movies");
-
+        
         const movies = getJsonElemByIdList(jsonData, topMoviesIdList);
-
+        
         createMoviesElements(movies, bestMoviesWrapper);
+        const moviesWraps = document.querySelectorAll('.movie-wrap');
+
+        moviesWraps.forEach((element) => {
+            element.addEventListener('click', (event) => {
+                const currentElement = event.currentTarget;
+                const detailsElement = currentElement.querySelector(
+                    '.movies-details-wrapper'
+                );
+
+                if (detailsElement) {
+                    detailsElement.classList.toggle('non-visible');
+                }
+            });
+        });
 
 
 
