@@ -12,6 +12,15 @@ def get_test_data(filename):
     except:
         raise Exception
 
+def insert_hash_pass_into_users():
+    data = get_test_data('database/users_100_test.json')
+
+    for i in range(len(data['users'])):
+        data['users'][i]['password'] = generate_password_hash(data['users'][i]['password'])
+
+    with open("new_ratings.json", "w", encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+
 
 def add_id_into_ratings():
     try:
@@ -36,15 +45,15 @@ def add_id_into_ratings():
         raise Exception
 
 def insert_into_database_test_data():
-    users_json = get_test_data("users.json")
-    ratings_json = get_test_data("new_ratings.json")
+    users_json = get_test_data("new_users.json")
+    ratings_json = get_test_data("ratings_recommendation_test.json")
 
     try:
         sqlConn = sqlite3.connect("users.db")
         cursor = sqlConn.cursor()
 
-        # for u in users_json['users']:
-        #     cursor.execute("INSERT INTO user VALUES(?, ?, ?, ?)", (u['id'], u['username'], u['email'], u['password']))
+        for u in users_json['users']:
+             cursor.execute("INSERT INTO user VALUES(?, ?, ?, ?)", (u['id'], u['username'], u['email'], u['password']))
 
         for r in ratings_json['ratings']:
             cursor.execute("INSERT INTO ratings VALUES(?, ?, ?, ?)", (r['id'], r['user_id'], r['movie_id'], r['value']))
@@ -59,5 +68,5 @@ def insert_into_database_test_data():
 
 
 if __name__ == "__main__":
-    insert_into_database_test_data()
+    #insert_into_database_test_data()
     pass

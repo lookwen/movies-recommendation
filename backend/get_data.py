@@ -142,5 +142,5 @@ def update_movies():
 
 
 if __name__ == '__main__':
-    #delete_users()
+    delete_users()
     pass
