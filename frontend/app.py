@@ -11,6 +11,7 @@ sys.path.append(str(project_root))
 from backend.get_data import *
 from backend.algorithms.data_summary import *
 from backend.database import db as _db
+from backend.algorithms.collaborative_filtering import create_movie_user_matrix
 
 
 app = Flask(__name__)
@@ -161,7 +162,7 @@ def get_recommended():
     
     user_id = session.get('user_id')
 
-    ratings = get_top_movies_id()
+    ratings = create_movie_user_matrix()
     return render_template('recommended.html', ratings=ratings)
 
 
