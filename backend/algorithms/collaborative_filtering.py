@@ -8,17 +8,17 @@ sys.path.append(str(project_root))
 
 from backend.get_data import *
 
-def create_movie_user_matrix(users, movies, ratings):
+def create_user_movie_matrix(users, movies, ratings):
     matrix = np.full((len(users), len(movies)), np.nan)
 
     for r in ratings:
         user_id = r['user_id']
-        movie_id = r['user_id']
+        movie_id = r['movie_id']
         value = r['value']
 
         matrix[user_id, movie_id] = value
 
-        return matrix
+    return matrix
 
 
 def cosine_similarity(movie_a, movie_b):
@@ -28,9 +28,12 @@ def cosine_similarity(movie_a, movie_b):
     counter = 0
     for i in range(len(movie_a)):
         if not np.isnan(movie_a[i]) and not np.isnan(movie_b[i]):
-            suma += movie_a[i]*movie_b[i]
-            sum_div_a += movie_a[i]**2
-            sum_div_b += movie_b[i]**2
+            a = movie_a[i]-3
+            b = movie_b[i]-3
+
+            suma += a*b
+            sum_div_a += a**2
+            sum_div_b += b**2
             counter += 1
         
     divider = math.sqrt(sum_div_a) * math.sqrt(sum_div_b)
@@ -46,7 +49,7 @@ def cosine_similarity(movie_a, movie_b):
 
 
 def create_similarity_matrix(user_movie_matrix, all_movies):
-    matrix = np.full((len(all_movies), len(all_movies)), dtype=float)
+    matrix = np.zeros((len(all_movies), len(all_movies)), dtype=float)
 
     np.fill_diagonal(matrix, 1.0)
 
@@ -65,17 +68,54 @@ def create_similarity_matrix(user_movie_matrix, all_movies):
 
 
 
+def reccomend_movies(user_id, user_movie_matrix, similarity_matrix):
+    user_ratings = user_movie_matrix[user_id, :]
 
-def recommend_algorithm():
+    not_rated = np.where(np.isnan(user_ratings))[0]
+    
+    if len(not_rated) == 0:
+        return []
+
+    not_rated_movies = []
+    center_point = 3
+    mask = ~np.isnan(user_ratings)
+    ratings = user_ratings[mask]
+    for movie_id in range(len(not_rated)):
+        weights = similarity_matrix[not_rated[movie_id]][mask]
+        
+        numerator = np.dot(weights, ratings - 3)
+        denominator = np.sum(np.abs(weights))
+
+        if denominator == 0:
+            not_rated_movies.append({"movie_id" : int(not_rated[movie_id]),"predicted_value" : float(3.0)})
+        else:
+            not_rated_movies.append({"movie_id" : int(not_rated[movie_id]), "predicted_value" : float(np.clip(3 + numerator/denominator, 1, 5))})
+        
+    not_rated_movies.sort(
+        key=lambda movie: movie["predicted_value"],
+        reverse=True
+    )
+
+    return not_rated_movies
+
+
+
+def recommend_algorithm(user_id):
     users = get_all_users_from_db()
     movies = get_movies_from_db()
     ratings = get_all_ratings_from_db()
 
-    movie_user_matrix = create_movie_user_matrix(users, movies, ratings)
+    user_movie_matrix = create_user_movie_matrix(users, movies, ratings)
 
-    similarity_matrix = create_similarity_matrix(movie_user_matrix, movies)
+    similarity_matrix = create_similarity_matrix(user_movie_matrix, movies)
 
-    
+    all_recommendation = reccomend_movies(user_id, user_movie_matrix, similarity_matrix)
+
+    return [movie["movie_id"] for movie in all_recommendation[:10]]
+
+
+
+
 
 
 
