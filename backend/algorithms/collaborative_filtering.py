@@ -101,6 +101,9 @@ def reccomend_movies(user_id, user_movie_matrix, similarity_matrix):
 
 
 def recommend_algorithm(user_id):
+    if user_id is None:
+        return []
+    
     users = get_all_users_from_db()
     movies = get_movies_from_db()
     ratings = get_all_ratings_from_db()
