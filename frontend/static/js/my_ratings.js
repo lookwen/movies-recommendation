@@ -19,7 +19,7 @@ async function getRatingsData(){
 function createDeleteForm(ratingWrap, element){
     const formDeleteRateButton = document.createElement('form');
     formDeleteRateButton.value = element.id;
-    formDeleteRateButton.action = `/raitings`;
+    formDeleteRateButton.action = `/ratings`;
     formDeleteRateButton.method = 'POST';
     ratingWrap.appendChild(formDeleteRateButton);
 
@@ -47,7 +47,7 @@ function createDeleteForm(ratingWrap, element){
 function createChangeForm(ratingWrap, element){
     const formChangeRateButton = document.createElement('form');
     formChangeRateButton.method = 'POST';
-    formChangeRateButton.action = '/raitings';
+    formChangeRateButton.action = '/ratings';
     ratingWrap.appendChild(formChangeRateButton);
     formChangeRateButton.classList.add('rating-change-form');
     
