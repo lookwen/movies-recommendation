@@ -30,3 +30,16 @@ def test_default_prediction_when_no_similarity():
     assert all(movie["predicted_value"] == pytest.approx(3.0) for movie in recommended) and len(recommended) == 2
 
 
+def test_prediction_with_similarity():
+    user_movie_matrix = np.array([[5, 1, np.nan]])
+    similarity_matrix = np.array([
+        [1.0, 0.0, 0.8],
+        [0.0, 1.0, 0.4],
+        [0.8, 0.4, 1.0]
+    ])
+
+    recommended = reccomend_movies(0, user_movie_matrix, similarity_matrix)
+    
+    assert len(recommended) == 1
+    assert recommended[0]["movie_id"] == 2
+    assert pytest.approx(3.66, 0.01) == recommended[0]['predicted_value']
