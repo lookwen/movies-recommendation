@@ -39,7 +39,7 @@ def register():
         db = _db.get_db()
 
         res = db.execute(
-            "SELECT * FROM user WHERE username = ? OR email = ?", (username, email)
+            "SELECT * FROM users WHERE username = ? OR email = ?", (username, email)
         )
         account = res.fetchone()
 
@@ -53,7 +53,7 @@ def register():
             msg = 'Please fill out the form!'
         else:
             hashed_password = generate_password_hash(password)
-            db.execute("INSERT INTO user VALUES (NULL, ?, ?, ?)", (username, email, hashed_password))
+            db.execute("INSERT INTO users VALUES (NULL, ?, ?, ?)", (username, email, hashed_password))
             db.commit()
             msg = 'You have successfully registered!'
             return redirect(url_for('login'))
@@ -70,7 +70,7 @@ def login():
         password = request.form['password']
 
         db = _db.get_db()
-        res = db.execute('SELECT * FROM user WHERE username = ?', (username,))
+        res = db.execute('SELECT * FROM users WHERE username = ?', (username,))
         account = res.fetchone()
 
         if account and check_password_hash(account['password'], password):

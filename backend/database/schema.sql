@@ -1,6 +1,6 @@
+DROP TABLE IF EXISTS ratings;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS ratings;
 
 
 CREATE TABLE users(
@@ -28,11 +28,11 @@ CREATE TABLE ratings(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     movie_id INTEGER NOT NULL,
+    value INTEGER CHECK (value > 0 AND value <= 5),
+    UNIQUE(user_id, movie_id),
     FOREIGN KEY (user_id)
         REFERENCES users(id),
     FOREIGN KEY (movie_id)
-        REFERENCES movies(id),
-    value INTEGER CHECK (value > 0 AND value <= 5),
-    UNIQUE(user_id, movie_id)
+        REFERENCES movies(id)
 
 );

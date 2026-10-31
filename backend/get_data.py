@@ -96,7 +96,7 @@ def get_ratings_by_movie_from_db(movie_id):
 def get_all_users_from_db():
     try:
         db = _db.get_db()
-        res = db.execute("SELECT username FROM user")
+        res = db.execute("SELECT username FROM users")
         users = res.fetchall()
 
         if not users:
