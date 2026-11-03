@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, session, request, redirect, f
 from werkzeug.security import generate_password_hash, check_password_hash
 import os, sys, sqlite3, re
 from pathlib import Path
+from dotenv import load_dotenv
 
 
 
@@ -13,11 +14,13 @@ from backend.algorithms.data_summary import *
 from backend.database import db as _db
 from backend.algorithms.collaborative_filtering import recommend_algorithm
 
+load_dotenv()
+
 
 app = Flask(__name__)
 
 app.config['DATABASE'] = project_root / 'backend' / 'database' / 'users.db'
-app.config['SECRET_KEY'] = 'dev-secret-key-change-later'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default-fallback-key')
 
 _db.init_app(app)
 
