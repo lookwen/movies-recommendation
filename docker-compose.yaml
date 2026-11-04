@@ -1,0 +1,19 @@
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: movies-recommendation
+
+    ports:
+      - "127.0.0.1:5000:5000"
+
+    volumes:
+      - ./backend/database:/app/backend/database
+
+    environment:
+      PYTHONUNBUFFERED: "1"
+      FLASK_DEBUG: "0"
+
+    restart: unless-stopped
